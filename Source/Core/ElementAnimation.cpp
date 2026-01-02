@@ -107,7 +107,7 @@ static bool CombineAndDecompose(Transform& t, Element& e)
 }
 
 /**
-    An abstraction for decorator and filter declarations.
+	An abstraction for decorator and filter declarations.
  */
 struct EffectDeclarationView {
 	EffectDeclarationView() = default;
@@ -808,6 +808,23 @@ Property ElementAnimation::UpdateAndGetProperty(double world_time, Element& elem
 	Property result = InterpolateProperties(keys[key0].property, keys[key1].property, alpha, element, keys[0].property.definition);
 
 	return result;
+}
+
+Property ElementAnimation::Complete()
+{
+	// Next iteration
+	current_iteration += 1;
+	time_since_iteration_start = duration;
+
+	if (num_iterations == -1 || (current_iteration >= 0 && current_iteration < num_iterations)) {
+		if (alternate_direction) {
+			reverse_direction = !reverse_direction;
+		}
+	} else {
+		animation_complete = true;
+	}
+
+	return keys.back().property;
 }
 
 } // namespace Rml

@@ -78,6 +78,7 @@ public:
 	bool AddKey(float target_time, const Property& property, Element& element, Tween tween, bool extend_duration);
 
 	Property UpdateAndGetProperty(double time, Element& element);
+	Property Complete();
 
 	PropertyId GetPropertyId() const { return property_id; }
 	float GetDuration() const { return duration; }

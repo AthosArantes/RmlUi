@@ -2543,6 +2543,28 @@ bool Element::AddAnimationKey(PropertyId id, const Property& target_value, float
 	return result;
 }
 
+bool Element::CompleteAnimation(PropertyId id)
+{
+	ElementAnimation* animation = nullptr;
+	for (auto& existing_animation : animations)
+	{
+		if (existing_animation.GetPropertyId() == id)
+		{
+			animation = &existing_animation;
+			break;
+		}
+	}
+
+	if (animation) {
+		Property property = animation->Complete();
+		if (property.unit != Unit::UNKNOWN) {
+			return SetProperty(id, property);
+		}
+	}
+
+	return false;
+}
+
 ElementAnimationList::iterator Element::StartAnimation(PropertyId property_id, const Property* start_value, int num_iterations,
 	bool alternate_direction, float delay, bool initiated_by_animation_property)
 {

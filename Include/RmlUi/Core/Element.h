@@ -279,6 +279,10 @@ public:
 	bool AddAnimationKey(const String& property_name, const Property& target_value, float duration, Tween tween = Tween{});
 	bool AddAnimationKey(PropertyId id, const Property& target_value, float duration, Tween tween = Tween{});
 
+	/// Immediately complete an animation.
+	/// @return True if the animation was completed, false otherwise.
+	bool CompleteAnimation(PropertyId id);
+
 	/// Iterator for the local (non-inherited) properties defined on this element.
 	/// @warning Modifying the element's properties or classes invalidates the iterator.
 	/// @return Iterator to the first property defined on this element.
